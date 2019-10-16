@@ -39,4 +39,9 @@ router.post('/new', function(req,res){
 
 });
 
+router.get('/all', function(req,res){
+    galCollection=fileModel.getGaleria();
+    res.json(galCollection);
+});
+
 module.exports=router;

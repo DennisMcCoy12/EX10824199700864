@@ -54,4 +54,31 @@ var saveToFile=function(collToSave,handler){
     );
 }
 
+var loadFromFile=function(handler){
+    fs.readFile(
+        filePath,
+        'utf8',
+        function(err, data){
+            if(err){
+                console.log(err);
+                handler(err, null);
+            }else{
+                handler(null,JSON.parse(data));
+            }
+        }
+    );
+
+}
+
+loadFromFile(
+    function(err, savedCollection){
+        if(err){
+            return;
+        }else{
+            data=savedCollection;
+            return;
+        }
+    }
+);
+
 module.exports=exportObject;
