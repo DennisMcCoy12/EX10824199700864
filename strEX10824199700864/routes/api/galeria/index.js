@@ -44,4 +44,28 @@ router.get('/all', function(req,res){
     res.json(galCollection);
 });
 
+router.delete(
+    '/delete/:galid',
+    function(req,res){
+        galCollection=fileModel.getGaleria();
+        var galIdToDelete=req.params.galid;
+        var newGalCollection=galCollection.filter(
+            function(o,i){
+                return galIdToDelete!=o.id;
+            }
+        );
+        galCollection=newGalCollection;
+        fileModel.setGaleria(
+            galCollection,
+            function(err,savedSuccesfully){
+                if(err){
+                    res.status(400).json({"error":"No se pudo eliminar la imagen"});
+                }else{
+                    res.json({"newGAlQty":galCollection.length});
+                }
+            }
+        )
+    }
+);
+
 module.exports=router;
